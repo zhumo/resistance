@@ -15,6 +15,11 @@ ActiveRecord::Schema.define(version: 2020_03_21_194516) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "games", force: :cascade do |t|
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "name", limit: 256, null: false
     t.string "password_digest", limit: 256
