@@ -7,4 +7,29 @@
   <% end %>
 </ul>
 
+<% if @mission_team.team_members.unresolved.present? %>
+  <p>Still waiting on team members to finish the mission.</p>
+<% else %>
+  <p>The team is back from the mission!</p>
+  <% @mission_team.team_members.each do |team_member| %>
+    <div class="mission-result">
+      <p class="mission-result__text"><%= team_member.result %></p>
+      <button class="mission-result__reveal-btn">Reveal!</button>
+    </div>
+  <% end %>
+  <%= content_for :javascript do %>
+    <script>
+      var missionResultCards = document.getElementsByClassName("mission-result");
+      for(missionResultCard of missionResultCards) {
+        var revealButton = missionResultCard.getElementsByClassName("mission-result__reveal-btn")[0];
+        revealButton.onclick = function() {
+          var missionResultText = this.getElementsByClassName("mission-result__text")[0];
+          missionResultText.style.visibility = "visible";
+        }.bind(missionResultCard);
+      }
+    </script>
+  <% end %>
+<% end %>
+
+<br><br>
 <%= link_to 'Back', @game %>

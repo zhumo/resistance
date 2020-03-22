@@ -4,4 +4,8 @@ Rails.application.routes.draw do
     resources :missions, only: [:update]
     resources :mission_teams, only: [:show, :new, :create]
   end
+
+  resources :users, only: [] do
+    resources :team_members, only: [:update]
+  end
 end

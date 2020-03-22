@@ -17,4 +17,8 @@ class User < ApplicationRecord
   validates_confirmation_of :password, allow_blank: true
   validates :name, presence: true
   validates :identity, presence: true, inclusion: { in: VALID_IDENTITIES }
+
+  def has_unresolved_missions?
+    team_memberships.unresolved.present?
+  end
 end

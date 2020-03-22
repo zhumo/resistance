@@ -20,6 +20,29 @@
       }
     </script>
   <% end %>
+  <br><br>
+  <% if @user.has_unresolved_missions? %>
+    You're currently on a mission. How do you want the mission to go?
+    <%= form_for [@user, @user.team_memberships.unresolved.first] do |f| %>
+      <%= hidden_field_tag :password, params[:password] %>
+      <%= f.radio_button :result, TeamMember::SUCCESS_RESULT %>
+      <%= f.label :result, value: TeamMember::SUCCESS_RESULT, style: "display: inline-block;" %>
+      <%= f.radio_button :result, TeamMember::FAIL_RESULT %>
+      <%= f.label :result, value: TeamMember::FAIL_RESULT, style: "display: inline-block;" %>
+      <br>
+      <%= f.submit "Submit" %>
+    <% end %>
+  <% end %>
+  <br><br>
+  Previous Missions:
+  <ol>
+    <% @user.team_memberships.resolved.each do |team_membership| %>
+      <li>
+        <%= (@user.game.mission_teams.index(team_membership.mission_team) + 1).ordinalize %> Mission - 
+        You chose: <%= team_membership.result %>
+      </li>
+    <% end %>
+  </ol>
 <% else %>
   <% if params[:password].present? %>
     <p>Incorrect password! try again</p>

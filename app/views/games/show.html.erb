@@ -39,7 +39,7 @@
   Mission Teams:
   <ol>
     <% @game.mission_teams.each do |mission_team| %>
-      <li><%= mission_team.users.pluck(:name).to_sentence %>, <%= link_to "Show", [@game, mission_team] %></li>
+      <li><%= mission_team.users.pluck(:name).to_sentence %> <%= link_to "Show", [@game, mission_team] %></li>
     <% end %>
   </ol>
   <br>
@@ -50,7 +50,7 @@
   Players:
   <ul>
   <% @game.users.each do |user| %>
-    <li><%= user.name %></li>
+    <li><%= user.name %> (<%= user.id %>)</li>
   <% end %>
   </ul>
 </p>
