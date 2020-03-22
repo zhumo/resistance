@@ -1,5 +1,22 @@
 .vote-counter-btn {
-  &.selected {
+  width: 40px;
+  height: 40px;
+  &:nth-of-type(1).selected {
+    background-color: lightgrey;
+  }
+  &:nth-of-type(2).selected {
+    background-color: #ffabab;
+  }
+  &:nth-of-type(3).selected {
+    background-color: #f26964;
+  }
+  &:nth-of-type(4).selected {
     background-color: red;
+  }
+  &:nth-of-type(5).selected {
+    background-color: darkred;
+  }
+  &:nth-of-type(6).selected {
+    background-color: black;
   }
 }
