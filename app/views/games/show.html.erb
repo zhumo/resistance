@@ -6,9 +6,14 @@
   <% @game.missions.each.with_index do |mission, n| %>
     <div class="mission">
       <%= mission.num_players %><% if @game.users.count >= 7 && n == 3 %>*<%end%>
+      <%= "(#{mission.status.capitalize})" if mission.status.present? %>
+      <%= button_to :success, [@game, mission], method: :patch, params: { mission: { status: Mission::SUCCESS_MISSION_STATUS } } %>
+      <%= button_to :failure, [@game, mission], method: :patch, params: { mission: { status: Mission::FAILURE_MISSION_STATUS } } %>
+      <%= button_to :clear, [@game, mission], method: :patch, params: { mission: { status: nil } } %>
     </div>
   <% end %>
 </p>
+
 <p>
   Vote Counter:
   <br>
@@ -28,6 +33,7 @@
     </script>
   <% end %>
 </p>
+
 <p>
   Users:
   <ul>
