@@ -10,6 +10,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
+    redirect_to [@game, @user] if @user.password_digest.present?
   end
 
   # PATCH/PUT /users/1
