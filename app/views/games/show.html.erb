@@ -1,6 +1,33 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  Missions:
+  <br>
+  <% @game.missions.each.with_index do |mission, n| %>
+    <div class="mission">
+      <%= mission.num_players %><% if @game.users.count >= 7 && n == 3 %>*<%end%>
+    </div>
+  <% end %>
+</p>
+<p>
+  Vote Counter:
+  <% 6.times do |n| %>
+    <%= button_tag n, class: "vote-counter-btn #{'selected' if n == 0}" %>
+  <% end %>
+
+  <%= content_for :javascript do %>
+    <script>
+      var voteCounterBtns = document.getElementsByClassName("vote-counter-btn");
+      for(btn of voteCounterBtns) {
+        btn.onclick = function() {
+          for(btn of voteCounterBtns) { btn.classList.remove("selected"); };
+          this.classList.add("selected");
+        };
+      };
+    </script>
+  <% end %>
+</p>
+<p>
   Users:
   <ul>
   <% @game.users.each do |user| %>
