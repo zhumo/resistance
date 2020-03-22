@@ -3,10 +3,23 @@
 <h1>Hi, <%= @user.name %>!</h1>
 
 <% if @user.authenticate(params[:password]) %>
-  <p class="identity">
+  <p class="identity" style="visibility: hidden;">
     Your identity is: <%= @user.identity.capitalize %>
   </p>
-  <button class="show-identity-btn">TODO: Show Identity</button>
+  <button class="show-identity-btn">Show Identity</button>
+
+  <%= content_for :javascript do %>
+    <script>
+      var identityContent = document.getElementsByClassName("identity")[0];
+      var showIdentityBtn = document.getElementsByClassName("show-identity-btn")[0];
+      showIdentityBtn.onmousedown = function() {
+        identityContent.style.visibility = 'visible';
+      }
+      showIdentityBtn.onmouseup = function() {
+        identityContent.style.visibility = 'hidden';
+      }
+    </script>
+  <% end %>
 <% else %>
   <% if params[:password].present? %>
     <p>Incorrect password! try again</p>
