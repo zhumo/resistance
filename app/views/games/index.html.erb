@@ -8,6 +8,7 @@
       <th></th>
       <th></th>
       <th></th>
+      <th></th>
     </tr>
   </thead>
 
@@ -16,6 +17,7 @@
       <tr>
         <td><%= game.id %></td>
         <td><%= game.created_at %></td>
+        <td><%= game.missions.pluck(:status).reject(&:blank?).to_sentence %></td>
         <td><%= link_to 'Show', game %></td>
       </tr>
     <% end %>

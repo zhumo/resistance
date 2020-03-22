@@ -6,7 +6,7 @@ class TeamMembersController < ApplicationController
     redirect_to :back, notice: "Incorrect Password" unless @user.authenticate(params[:password])
     respond_to do |format|
       if @team_member.update(team_member_params)
-        format.html { redirect_to [@user.game, @user], notice: 'Mission was successfully updated.' }
+        format.html { redirect_to game_user_path(@user.game, @user, password: params[:password]), notice: 'Mission was successfully updated.' }
         format.json { render :show, status: :ok, location: @team_member }
       else
         format.html { render :edit }

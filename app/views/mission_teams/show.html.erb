@@ -11,7 +11,7 @@
   <p>Still waiting on team members to finish the mission.</p>
 <% else %>
   <p>The team is back from the mission!</p>
-  <% @mission_team.team_members.each do |team_member| %>
+  <% @mission_team.team_members.shuffle.each do |team_member| %>
     <div class="mission-result">
       <p class="mission-result__text"><%= team_member.result %></p>
       <button class="mission-result__reveal-btn">Reveal!</button>
