@@ -1,0 +1,22 @@
+<%= form_with(model: [game, mission_team], local: true) do |f| %>
+  <% if mission_team.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(mission_team.errors.count, "error") %> prohibited this mission_team from being saved:</h2>
+
+      <ul>
+        <% mission_team.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.fields_for :team_members do |ff| %>
+    <%= ff.label :user_id, ff.object.user.name %>
+    <%= ff.check_box :user_id, { checked: false }, ff.object.user_id, nil %>
+  <% end %>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

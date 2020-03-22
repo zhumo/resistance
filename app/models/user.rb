@@ -9,6 +9,7 @@ class User < ApplicationRecord
 
   has_secure_password validations: false
 
+  has_many :team_memberships, inverse_of: :user, class_name: "TeamMember"
   belongs_to :game, required: true, inverse_of: :users
 
   validates :password,

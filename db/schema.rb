@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_22_004453) do
+ActiveRecord::Schema.define(version: 2020_03_22_175229) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,6 +20,13 @@ ActiveRecord::Schema.define(version: 2020_03_22_004453) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "mission_teams", force: :cascade do |t|
+    t.bigint "game_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["game_id"], name: "index_mission_teams_on_game_id"
+  end
+
   create_table "missions", force: :cascade do |t|
     t.string "status", limit: 256
     t.integer "num_players", null: false
@@ -27,6 +34,16 @@ ActiveRecord::Schema.define(version: 2020_03_22_004453) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["game_id"], name: "index_missions_on_game_id"
+  end
+
+  create_table "team_members", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "mission_team_id", null: false
+    t.string "result", limit: 256
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["mission_team_id"], name: "index_team_members_on_mission_team_id"
+    t.index ["user_id"], name: "index_team_members_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -39,4 +56,6 @@ ActiveRecord::Schema.define(version: 2020_03_22_004453) do
     t.index ["game_id"], name: "index_users_on_game_id"
   end
 
+  add_foreign_key "team_members", "mission_teams"
+  add_foreign_key "team_members", "users"
 end
