@@ -1,6 +1,5 @@
-<h1>Editing User</h1>
+<h1>Hi, <%= @user.name %>!</h1>
 
-<%= render 'form', user: @user %>
+<p>Please set a password</p>
 
-<%= link_to 'Show', @user %> |
-<%= link_to 'Back', users_path %>
+<%= render 'form', game: @game, user: @user %>

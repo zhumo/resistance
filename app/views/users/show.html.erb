@@ -1,9 +1,22 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
+<h1>Hi, <%= @user.name %>!</h1>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<% if @user.authenticate(params[:password]) %>
+  <p class="identity">
+    Your identity is: <%= @user.identity.capitalize %>
+  </p>
+  <button class="show-identity-btn">TODO: Show Identity</button>
+<% else %>
+  <% if params[:password].present? %>
+    <p>Incorrect password! try again</p>
+  <% end %>
+
+  <p>Please enter your password</p>
+
+  <%= form_tag [@game, @user], method: :get do %>
+    <%= password_field_tag %>
+    <%= submit_tag "Submit" %>
+  <% end %>
+
+<% end %>

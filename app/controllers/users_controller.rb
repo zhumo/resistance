@@ -1,9 +1,11 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_game
+  before_action :set_user
 
   # GET /users/1
   # GET /users/1.json
   def show
+    redirect_to edit_game_user_path(@game, @user) if @user.password_digest.blank?
   end
 
   # GET /users/1/edit
@@ -15,7 +17,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.html { redirect_to [@game, @user], notice: 'User was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
       else
         format.html { render :edit }
@@ -26,12 +28,16 @@ class UsersController < ApplicationController
 
   private
     # Use callbacks to share common setup or constraints between actions.
+    def set_game
+      @game = Game.find(params[:game_id])
+    end
+
     def set_user
-      @user = User.find(params[:id])
+      @user = @game.users.find(params[:id])
     end
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:name, :password, :password_confirmation)
+      params.require(:user).permit(:password, :password_confirmation)
     end
 end
