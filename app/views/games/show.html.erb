@@ -49,7 +49,7 @@
 <p>
   Players:
   <ul>
-  <% @game.users.each do |user| %>
+  <% @game.users.order(:id).each do |user| %>
     <li><%= user.name %> (<%= user.id %>) <%= link_to "profile", [@game, user] %></li>
   <% end %>
   </ul>
