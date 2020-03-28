@@ -4,7 +4,7 @@
 <p>
   Missions:
   <br>
-  <% @game.missions.each.order(:id).with_index do |mission, n| %>
+  <% @game.missions.order(:id).each.with_index do |mission, n| %>
     <div class="mission">
       <%= mission.num_players %><% if @game.users.count >= 7 && n == 3 %>*<%end%>
       <%= "(#{mission.status.capitalize})" if mission.status.present? %>
