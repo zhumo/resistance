@@ -38,7 +38,7 @@
 <p>
   Mission Teams:
   <ol>
-    <% @game.mission_teams.each do |mission_team| %>
+    <% @game.mission_teams.order(:id).each do |mission_team| %>
       <li><%= mission_team.users.pluck(:name).to_sentence %> <%= link_to "Show", [@game, mission_team] %></li>
     <% end %>
   </ol>
