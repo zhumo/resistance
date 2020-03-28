@@ -12,8 +12,9 @@
   <% end %>
 
   <%= f.fields_for :team_members do |ff| %>
-    <%= ff.label :user_id, ff.object.user.name %>
     <%= ff.check_box :user_id, { checked: false }, ff.object.user_id, nil %>
+    <%= ff.label :user_id, ff.object.user.name, class: "checkbox-label" %>
+    <br>
   <% end %>
 
   <div class="actions">
